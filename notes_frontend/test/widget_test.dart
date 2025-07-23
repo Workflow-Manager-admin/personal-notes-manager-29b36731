@@ -3,16 +3,20 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:notes_frontend/main.dart';
 
 void main() {
-  testWidgets('App generation message displayed', (WidgetTester tester) async {
-    await tester.pumpWidget(const MyApp());
+  testWidgets('HomePage UI basic test', (WidgetTester tester) async {
+    await tester.pumpWidget(const NotesApp());
+    // Should find app bar header ("My Notes")
+    expect(find.text('My Notes'), findsOneWidget);
 
-    expect(find.text('notes_frontend App is being generated...'), findsOneWidget);
-    expect(find.byType(CircularProgressIndicator), findsOneWidget);
+    // Should find a search field
+    expect(find.byType(TextField), findsOneWidget);
+
+    // Should find New Note button (FAB)
+    expect(find.byType(FloatingActionButton), findsOneWidget);
   });
 
-  testWidgets('App bar has correct title', (WidgetTester tester) async {
-    await tester.pumpWidget(const MyApp());
-
-    expect(find.text('notes_frontend'), findsOneWidget);
+  testWidgets('Theme toggle button present', (WidgetTester tester) async {
+    await tester.pumpWidget(const NotesApp());
+    expect(find.byIcon(Icons.light_mode), findsWidgets); // Since default: system/light
   });
 }
